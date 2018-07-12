@@ -26,6 +26,25 @@ pipeline {
         echo 'Continuing with deployment'
       }
     }
+    stage('Get Kernel') {
+      steps {
+        // note-ks: try to avoid using script blocks. Defeats the purpose of using declarative. Only use in exceptional situations e.g. when you want to call a function in a shared library.
+        script {
+          try {
+            // note-ks: this variable becomes availbel globally
+            KERNEL_VERSION = sh (script: "uname -r", returnStdout: true)
+          } catch(err) {
+            echo "CAUGHT ERROR: ${err}"
+            throw err
+          }
+        }
+      }
+    }
+    stage('Say Kernel') {
+      steps {
+        echo "${KERNEL_VERSION}"
+      }
+    }
   }
   environment {
     MY_NAME = 'Kaushalya Samarasekera'
