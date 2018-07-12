@@ -28,7 +28,7 @@ pipeline {
     }
     stage('Get Kernel') {
       steps {
-        // note-ks: try to avoid using script blocks. Defeats the purpose of using declarative. Only use in exceptional situations e.g. when you want to call a function in a shared library.
+        // note-ks: try to avoid using script blocks. If complex, wrap it in a shared library function can call it instead.
         script {
           try {
             // note-ks: this variable becomes availbel globally
